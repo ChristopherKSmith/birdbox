@@ -6,3 +6,8 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+//Tailwind
+@tailwind preflight;
+
+@tailwind components;
