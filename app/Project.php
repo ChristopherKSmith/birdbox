@@ -2,13 +2,14 @@
 
 namespace App;
 
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected $guarded = [];
+    use RecordsActivity;
 
-    public $old = [];
+    protected $guarded = [];
 
     /**
      * The attributes that should be cast to native types.
@@ -18,6 +19,8 @@ class Project extends Model
     protected $casts = [
         'owner_id' => 'integer',
     ];
+
+    protected static $recordableEvents = ['created', 'updated'];
 
     public function path()
     {
@@ -37,32 +40,6 @@ class Project extends Model
     public function addTask($body)
     {
         return $this->tasks()->create(compact('body'));
-    }
-
-    /**
-     * Record activity for a project
-     *
-     * @param string $type
-     * @param \App\Project $project
-     */
-    public function recordActivity($description)
-    {
-
-        $this->activity()->create([
-            'description' => $description,
-            'changes'     => $this->activityChanges($description),
-        ]);
-    }
-
-    public function activityChanges($description)
-    {
-        if ($description == 'updated') {
-            return [
-                'before' => array_diff($this->old, $this->getAttributes()),
-                'after'  => $this->getChanges(),
-            ];
-        }
-        return null;
     }
 
     public function activity()
