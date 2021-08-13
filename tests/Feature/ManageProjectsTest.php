@@ -55,11 +55,30 @@ class ManageProjectsTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_see_all_projects_they_have_been_invited_to()
+    public function unauthorized_users_cannot_delete_projects()
     {
-        $project = tap(app(ProjectFactory::class)->create())->invite($this->signIn());
+        $project = app(ProjectFactory::class)->create();
 
-        $this->get('/projects')->assertSee($project->title);
+        $this->delete($project->path())
+            ->assertRedirect('/login');
+
+        $this->signIn();
+
+        $this->delete($project->path())
+            ->assertStatus(403);
+
+    }
+
+    /** @test */
+    public function a_user_can_delete_a_project()
+    {
+        $project = app(ProjectFactory::class)->create();
+
+        $this->actingAs($project->owner)->delete($project->path())
+            ->assertRedirect('/projects');
+
+        $this->assertDatabaseMissing('projects', $project->only('id'));
+
     }
 
     /** @test */

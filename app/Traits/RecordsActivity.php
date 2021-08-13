@@ -35,7 +35,7 @@ trait RecordsActivity
             return $recordableEvents = static::$recordableEvents;
         }
 
-        return ['created', 'updated', 'deleted'];
+        return ['created', 'updated'];
     }
 
     protected function activityDescription($description)
@@ -53,10 +53,18 @@ trait RecordsActivity
     {
 
         $this->activity()->create([
+            'user_id'     => $this->activityOwner()->id,
             'description' => $description,
             'changes'     => $this->activityChanges(),
             'project_id'  => class_basename($this) === 'Project' ? $this->id : $this->project->id,
         ]);
+    }
+
+    protected function activityOwner()
+    {
+        $project = $this->project ?? $this;
+
+        return $project->owner;
     }
 
     public function activity()
