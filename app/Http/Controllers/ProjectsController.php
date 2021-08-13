@@ -9,7 +9,7 @@ class ProjectsController extends Controller
     public function index()
     {
         return view('projects.index', [
-            'projects' => auth()->user()->projects,
+            'projects' => auth()->user()->availableProjects(),
         ]);
     }
 
@@ -62,5 +62,12 @@ class ProjectsController extends Controller
         return view('projects.edit', [
             'project' => $project,
         ]);
+    }
+
+    public function destroy(Project $project)
+    {
+        $this->authorize('update', $project);
+        $project->delete();
+        return redirect('/projects');
     }
 }
