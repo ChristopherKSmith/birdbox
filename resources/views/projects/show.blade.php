@@ -4,7 +4,7 @@
 
     <header class="flex items-center mb-3 py-4">
         <div class="flex justify-between items-end w-full">
-            <p class="text-grey text-sm font-normal">
+            <p class="text-default text-sm font-normal">
                 <a href="/projects">My Projects</a> / {{ $project->title }}
             </p>
 
@@ -29,7 +29,7 @@
                 {{-- tasks --}}
                 <div class="mb-8">
 
-                    <h2 class="text-lg text-grey font-normal mb-3">Tasks</h2>
+                    <h2 class="text-lg text-default font-normal mb-3">Tasks</h2>
 
                     @foreach ($project->tasks as $task)
                         <div class="card mb-3">
@@ -38,7 +38,7 @@
                                 @csrf
                                 <div class="flex">
                                     <input type="text" name="body" value="{{ $task->body }}"
-                                        class="w-full {{ $task->completed ? 'text-grey' : '' }}">
+                                        class="bg-card text-default w-full {{ $task->completed ? 'text-default' : '' }}">
 
                                     <input type="checkbox" name="completed" onChange="this.form.submit()"
                                         {{ $task->completed ? 'checked' : '' }}>
@@ -50,14 +50,14 @@
                     <div class="card mb-3">
                         <form action="{{ $project->path() . '/tasks' }}" method="POST">
                             @csrf
-                            <input class="w-full" placeholder="Add a new task..." name="body">
+                            <input class="bg-card text-default w-full" placeholder="Add a new task..." name="body">
                         </form>
                     </div>
                 </div>
 
                 {{-- general notes --}}
                 <div>
-                    <h2 class="text-lg text-grey font-normal mb-3">General Notes</h2>
+                    <h2 class="text-lg text-default font-normal mb-3">General Notes</h2>
 
                     <form method="POST" action="{{ $project->path() }}">
                         @method('PATCH')
