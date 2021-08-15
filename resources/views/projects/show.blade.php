@@ -4,8 +4,9 @@
 
     <header class="flex items-center mb-3 py-4">
         <div class="flex justify-between items-end w-full">
-            <p class="text-grey text-sm font-normal">
-                <a href="/projects">My Projects</a> / {{ $project->title }}
+            <p class="text-muted font-light">
+                <a href="/projects" class="text-muted no-underline hover:underline">My Projects</a> /
+                {{ $project->title }}
             </p>
 
             <div class="flex items-center">
@@ -29,7 +30,7 @@
                 {{-- tasks --}}
                 <div class="mb-8">
 
-                    <h2 class="text-lg text-grey font-normal mb-3">Tasks</h2>
+                    <h2 class="text-lg text-muted font-light mb-3">Tasks</h2>
 
                     @foreach ($project->tasks as $task)
                         <div class="card mb-3">
@@ -37,8 +38,8 @@
                                 @method('PATCH')
                                 @csrf
                                 <div class="flex">
-                                    <input type="text" name="body" value="{{ $task->body }}"
-                                        class="w-full {{ $task->completed ? 'text-grey' : '' }}">
+                                    <input type="text" name="body" value="{{ $task->body }}" class="text-default
+                                            bg-card w-full {{ $task->completed ? 'line-through text-muted' : '' }}">
 
                                     <input type="checkbox" name="completed" onChange="this.form.submit()"
                                         {{ $task->completed ? 'checked' : '' }}>
@@ -50,14 +51,14 @@
                     <div class="card mb-3">
                         <form action="{{ $project->path() . '/tasks' }}" method="POST">
                             @csrf
-                            <input class="w-full" placeholder="Add a new task..." name="body">
+                            <input class="bg-card text-default w-full" placeholder="Add a new task..." name="body">
                         </form>
                     </div>
                 </div>
 
                 {{-- general notes --}}
                 <div>
-                    <h2 class="text-lg text-grey font-normal mb-3">General Notes</h2>
+                    <h2 class="text-lg text-muted font-light mb-3">General Notes</h2>
 
                     <form method="POST" action="{{ $project->path() }}">
                         @method('PATCH')

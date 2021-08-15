@@ -13,6 +13,13 @@ module.exports = {
             '2xl': '1536px',
         },
         colors: {
+            default: 'var(--text-default-color)',
+            accent: 'var(--text-accent-color)',
+            'accent-light': 'var(--text-accent-light-color)',
+            muted: 'var(--text-muted-color)',
+            'muted-light': 'var(--text-muted-light-color)',
+            'error': 'var(--text-error-color)',
+
             transparent: 'transparent',
             current: 'currentColor',
 
@@ -26,13 +33,6 @@ module.exports = {
             indigo: colors.indigo,
             purple: colors.violet,
             pink: colors.pink,
-
-            //Customer Colors
-            'grey-light': '#F5F6F9',
-            'grey': 'rgba(0, 0, 0, 0.4)',
-
-            'blue': '#47cdff',
-            'blue-light': '#8ae2fe',
         },
         spacing: {
             px: '1px',
@@ -87,7 +87,12 @@ module.exports = {
         backdropOpacity: (theme) => theme('opacity'),
         backdropSaturate: (theme) => theme('saturate'),
         backdropSepia: (theme) => theme('sepia'),
-        backgroundColor: (theme) => theme('colors'),
+        backgroundColor: {
+            page: 'var(--page-background-color)',
+            card:'var(--card-background-color)',
+            button:'var(--button-background-color)',
+            header:'var(--header-background-color)'
+        },
         backgroundImage: {
             none: 'none',
             'gradient-to-t': 'linear-gradient(to top, var(--tw-gradient-stops))',

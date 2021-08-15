@@ -1,19 +1,21 @@
 // Variables
-@import 'variables';
+@import "variables";
+@import "themes/light";
+@import "themes/dark";
 
-// Bootstrap
-// @import '~bootstrap/scss/bootstrap';
+@import "components/button";
+@import "components/card";
+@import "components/dropdown";
 
-/* ./resources/css/app.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.button {
-    @apply bg-blue text-white no-underline rounded-lg text-sm py-2 px-5;
-    box-shadow: 0 2px 7px 0 #b0eaff;
+body,
+button {
+    @apply text-default;
 }
 
-.card {
-    @apply bg-white p-5 rounded-lg shadow;
+.section {
+    @apply px-8;
 }
